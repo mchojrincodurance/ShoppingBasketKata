@@ -6,7 +6,7 @@ import com.codurance.shoppingbasket.model.Product;
 import com.codurance.shoppingbasket.model.ShoppingBasket;
 import com.codurance.shoppingbasket.repositories.ProductRepository;
 import com.codurance.shoppingbasket.service.ShoppingBasketService;
-import infrastructure.ShoppingBasketRenderer;
+import com.codurance.shoppingbasket.infrastructure.ShoppingBasketRenderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
