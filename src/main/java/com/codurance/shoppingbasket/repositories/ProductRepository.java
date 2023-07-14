@@ -13,6 +13,6 @@ public class ProductRepository {
 
     public Product find(String productName) {
 
-        return (Product) database.findBy("name", productName);
+        return (Product) database.findBy("product", "name", productName);
     }
 }

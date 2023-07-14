@@ -15,6 +15,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class ProductRepositoryShould {
     public static final String PRODUCT_NAME = "The hobbit";
+    public static final String PRODUCT_TYPE = "product";
     @Mock
     private Database database;
     @InjectMocks
@@ -23,7 +24,7 @@ public class ProductRepositoryShould {
     @Test
     public void find_products_by_name() {
         Product theHobbit = new Product(1, PRODUCT_NAME, 5);
-        when(database.findBy("name", PRODUCT_NAME)).thenReturn(theHobbit);
+        when(database.findBy(PRODUCT_TYPE, "name", PRODUCT_NAME)).thenReturn(theHobbit);
 
         assertEquals(theHobbit, productRepository.find(PRODUCT_NAME));
     }
