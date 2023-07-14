@@ -2,12 +2,16 @@ package controller;
 
 import com.codurance.shoppingbasket.controller.MainController;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import com.codurance.shoppingbasket.service.ShoppingBasketService;
+import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 
+@RunWith(MockitoJUnitRunner.class)
 public class MainControllerShould {
 
     @Mock
