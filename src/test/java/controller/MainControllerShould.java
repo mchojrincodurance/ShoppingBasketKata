@@ -16,8 +16,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.stream.Stream;
 
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class MainControllerShould {
@@ -30,10 +30,10 @@ public class MainControllerShould {
     public static final int SECOND_PRODUCT_QUANTITY = 5;
     public static final int SECOND_PRODUCT_ID = 2;
 
-    private final MyConsole console = new MyConsole();
+    @Mock
+    private MyConsole console;
     @Mock
     private ShoppingBasketService shoppingBasketService;
-
     @Mock
     private ProductRepository productRepository;
     @InjectMocks
@@ -49,8 +49,8 @@ public class MainControllerShould {
     @ParameterizedTest
     @MethodSource("provideAddingItemsParameters")
     public void allow_adding_items(int userId, String productName, int productId, int quantity) {
-        when(productRepository.find(FIRST_PRODUCT)).thenReturn(new Product(FIRST_PRODUCT_ID, FIRST_PRODUCT));
-        when(productRepository.find(SECOND_PRODUCT)).thenReturn(new Product(SECOND_PRODUCT_ID, SECOND_PRODUCT));
+        lenient().when(productRepository.find(FIRST_PRODUCT)).thenReturn(new Product(FIRST_PRODUCT_ID, FIRST_PRODUCT));
+        lenient().when(productRepository.find(SECOND_PRODUCT)).thenReturn(new Product(SECOND_PRODUCT_ID, SECOND_PRODUCT));
 
         mainController.addItem(userId, productName, quantity);
 
