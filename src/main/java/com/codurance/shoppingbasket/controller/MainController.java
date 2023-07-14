@@ -13,7 +13,7 @@ public class MainController {
         this.productRepository = productRepository;
     }
 
-    public void checkBasketContent(int i) {
+    public void checkBasketContent(int userId) {
     }
 
     public void addItem(int userId, String productName, int quantity) {
