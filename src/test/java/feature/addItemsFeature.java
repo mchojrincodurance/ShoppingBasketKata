@@ -1,7 +1,7 @@
 package feature;
 
-import controller.MainController;
-import infrastructure.MyConsole;
+import com.codurance.shoppingbasket.controller.MainController;
+import com.codurance.shoppingbasket.infrastructure.MyConsole;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
