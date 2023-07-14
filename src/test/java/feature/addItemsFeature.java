@@ -2,6 +2,8 @@ package feature;
 
 import com.codurance.shoppingbasket.controller.MainController;
 import com.codurance.shoppingbasket.infrastructure.MyConsole;
+import com.codurance.shoppingbasket.repositories.ProductRepository;
+import com.codurance.shoppingbasket.service.ShoppingBasketService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,8 +18,8 @@ public class addItemsFeature {
     private MainController mainController;
 
     @Before
-    public void setUp() throws Exception {
-        mainController = new MainController(console);
+    public void setUp() {
+        mainController = new MainController(console, new ShoppingBasketService(), new ProductRepository());
     }
 
     /**
