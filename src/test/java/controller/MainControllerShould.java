@@ -2,11 +2,14 @@ package controller;
 
 import com.codurance.shoppingbasket.controller.MainController;
 import com.codurance.shoppingbasket.infrastructure.MyConsole;
+import com.codurance.shoppingbasket.model.Product;
+import com.codurance.shoppingbasket.repositories.ProductRepository;
 import com.codurance.shoppingbasket.service.ShoppingBasketService;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -14,6 +17,7 @@ import java.util.stream.Stream;
 
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class MainControllerShould {
@@ -30,6 +34,11 @@ public class MainControllerShould {
     @Mock
     private ShoppingBasketService shoppingBasketService;
 
+    @Mock
+    private ProductRepository productRepository;
+    @InjectMocks
+    private MainController mainController;
+
     public static Stream<Arguments> provideAddingItemsParameters() {
         return Stream.of(
                 Arguments.of(USER_ID, FIRST_PRODUCT, FIRST_PRODUCT_ID, FIRST_PRODUCT_QUANTITY),
@@ -40,7 +49,8 @@ public class MainControllerShould {
     @ParameterizedTest
     @MethodSource("provideAddingItemsParameters")
     public void allow_adding_items(int userId, String productName, int productId, int quantity) {
-        MainController mainController = new MainController(console, shoppingBasketService);
+        when(productRepository.find(FIRST_PRODUCT)).thenReturn(new Product(FIRST_PRODUCT_ID, FIRST_PRODUCT));
+        when(productRepository.find(SECOND_PRODUCT)).thenReturn(new Product(SECOND_PRODUCT_ID, SECOND_PRODUCT));
 
         mainController.addItem(userId, productName, quantity);
 
