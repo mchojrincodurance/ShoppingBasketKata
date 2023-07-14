@@ -3,8 +3,11 @@ package controller;
 import com.codurance.shoppingbasket.controller.MainController;
 import com.codurance.shoppingbasket.infrastructure.MyConsole;
 import com.codurance.shoppingbasket.model.Product;
+import com.codurance.shoppingbasket.model.ShoppingBasket;
 import com.codurance.shoppingbasket.repositories.ProductRepository;
 import com.codurance.shoppingbasket.service.ShoppingBasketService;
+import infrastructure.ShoppingBasketRenderer;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -16,8 +19,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.stream.Stream;
 
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.lenient;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class MainControllerShould {
@@ -38,6 +40,8 @@ public class MainControllerShould {
     private ProductRepository productRepository;
     @InjectMocks
     private MainController mainController;
+    @Mock
+    private ShoppingBasketRenderer shoppingBasketRenderer;
 
     public static Stream<Arguments> provideAddingItemsParameters() {
         return Stream.of(
@@ -55,5 +59,16 @@ public class MainControllerShould {
         mainController.addItem(userId, productName, quantity);
 
         verify(shoppingBasketService).addItem(eq(userId), eq(productId), eq(quantity));
+    }
+
+    @Test
+    public void allow_checking_basket_content() {
+        ShoppingBasket shoppingBasket = new ShoppingBasket();
+
+        when(shoppingBasketService.basketFor(USER_ID)).thenReturn(shoppingBasket);
+
+        mainController.checkBasketContent(USER_ID);
+
+        verify(shoppingBasketRenderer).render(shoppingBasket);
     }
 }
