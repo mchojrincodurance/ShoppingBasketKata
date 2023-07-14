@@ -15,15 +15,20 @@ import static org.mockito.Mockito.verify;
 @RunWith(MockitoJUnitRunner.class)
 public class MainControllerShould {
 
+    public static final int USER_ID = 1;
+    public static final String PRODUCT_NAME = "The hobbit";
+    public static final int THE_HOBBIT_QUANTITY = 2;
+    public static final int THE_HOBBIT_ID = 1;
+    private final MyConsole console = new MyConsole();
     @Mock
     private ShoppingBasketService shoppingBasketService;
 
     @Test
     public void allow_adding_items() {
-        MainController mainController = new MainController(new MyConsole(), shoppingBasketService);
+        MainController mainController = new MainController(console, shoppingBasketService);
 
-        mainController.addItem(1, "The hobbit", 2);
+        mainController.addItem(USER_ID, PRODUCT_NAME, THE_HOBBIT_QUANTITY);
 
-        verify(shoppingBasketService).addItem(eq(1), eq(1), eq(2));
+        verify(shoppingBasketService).addItem(eq(USER_ID), eq(THE_HOBBIT_ID), eq(THE_HOBBIT_QUANTITY));
     }
 }
