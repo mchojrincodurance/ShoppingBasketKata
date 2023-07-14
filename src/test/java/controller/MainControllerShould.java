@@ -1,6 +1,7 @@
 package controller;
 
 import com.codurance.shoppingbasket.controller.MainController;
+import com.codurance.shoppingbasket.infrastructure.MyConsole;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -19,7 +20,7 @@ public class MainControllerShould {
 
     @Test
     public void allow_adding_items() {
-        MainController mainController = new MainController(shoppingBasketService);
+        MainController mainController = new MainController(new MyConsole(), shoppingBasketService);
 
         mainController.addItem(1, "The hobbit", 2);
 
