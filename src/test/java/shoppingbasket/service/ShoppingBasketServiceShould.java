@@ -3,6 +3,7 @@ package shoppingbasket.service;
 import com.codurance.shoppingbasket.model.Product;
 import com.codurance.shoppingbasket.model.ShoppingBasket;
 import com.codurance.shoppingbasket.model.ShoppingBasketFactory;
+import com.codurance.shoppingbasket.repositories.ProductRepository;
 import com.codurance.shoppingbasket.service.ShoppingBasketService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,8 +15,7 @@ import shoppingbasket.model.ProductOrder;
 import shoppingbasket.repositories.ShoppingBasketRepository;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class ShoppingBasketServiceShould {
@@ -31,6 +31,9 @@ public class ShoppingBasketServiceShould {
     @Mock
     private ShoppingBasketRepository shoppingBasketRepository;
 
+    @Mock
+    private ProductRepository productRepository;
+
     @Test
     public void create_shopping_basket_when_first_product_is_added() {
         ShoppingBasket shoppingBasket = shoppingBasketService.basketFor(USER_ID);
@@ -42,7 +45,7 @@ public class ShoppingBasketServiceShould {
 
     @Test
     public void create_different_shopping_baskets_for_different_users() {
-        shoppingBasketService = new ShoppingBasketService(shoppingBasketFactory, shoppingBasketRepository);
+        shoppingBasketService = new ShoppingBasketService(shoppingBasketFactory, shoppingBasketRepository,productRepository );
 
         shoppingBasketService.addItem(1, 1, 2);
         shoppingBasketService.addItem(2, 1, 2);
@@ -66,7 +69,11 @@ public class ShoppingBasketServiceShould {
         shoppingBasketService.addItem(USER_ID, ITEM_ID, ITEM_QUANTITY);
         ShoppingBasket shoppingBasket = shoppingBasketService.basketFor(USER_ID);
 
-        ProductOrder productOrder = new ProductOrder(new Product(ITEM_ID, ITEM_NAME, ITEM_PRICE), ITEM_QUANTITY);
+        Product product = new Product(ITEM_ID, ITEM_NAME, ITEM_PRICE);
+
+        when(productRepository.find(ITEM_ID)).thenReturn(product);
+
+        ProductOrder productOrder = new ProductOrder(product, ITEM_QUANTITY);
 
         assertTrue(shoppingBasket.productOrders().contains(productOrder));
     }

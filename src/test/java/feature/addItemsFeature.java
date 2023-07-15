@@ -23,7 +23,10 @@ public class addItemsFeature {
 
     @Before
     public void setUp() {
-        mainController = new MainController(new ShoppingBasketRenderer(console), new ShoppingBasketService(new ShoppingBasketFactory(), new ShoppingBasketRepository()), new ProductRepository(new Database()));
+        Database database = new Database();
+        ProductRepository productRepository = new ProductRepository(database);
+
+        mainController = new MainController(new ShoppingBasketRenderer(console), new ShoppingBasketService(new ShoppingBasketFactory(), new ShoppingBasketRepository(), productRepository), productRepository);
     }
 
     /**
