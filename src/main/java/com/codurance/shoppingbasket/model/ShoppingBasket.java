@@ -1,10 +1,12 @@
 package com.codurance.shoppingbasket.model;
 
+import shoppingbasket.model.ProductOrder;
+
 import java.util.ArrayList;
 
 public class ShoppingBasket {
     private final int ownerId;
-    private final ArrayList products = new ArrayList();
+    private final ArrayList<ProductOrder> productOrders = new ArrayList();
 
     public ShoppingBasket(int ownerId)
     {
@@ -15,10 +17,11 @@ public class ShoppingBasket {
         return ownerId;
     }
 
-    public ArrayList products() {
-        return products;
+    public ArrayList<ProductOrder> productOrders() {
+        return productOrders;
     }
 
-    public void add(Product product) {
+    public void add(ProductOrder productOrder) {
+        productOrders.add(productOrder);
     }
 }
