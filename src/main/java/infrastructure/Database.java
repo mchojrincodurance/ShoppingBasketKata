@@ -33,6 +33,16 @@ public class Database {
                     ;
         }
 
+        if (field.equals("id")) {
+            return records
+                    .get(ObjectType)
+                    .stream()
+                    .filter((element) -> ((Product) element).id() == Integer.parseInt(value))
+                    .findFirst()
+                    .get()
+                    ;
+        }
+
         throw new UnsupportedOperationException("infrastructure.Database::findBy not implemented yet");
     }
 }
