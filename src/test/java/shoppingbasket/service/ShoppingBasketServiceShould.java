@@ -1,18 +1,27 @@
 package shoppingbasket.service;
 
-import com.codurance.shoppingbasket.model.Product;
 import com.codurance.shoppingbasket.model.ShoppingBasket;
+import com.codurance.shoppingbasket.model.ShoppingBasketFactory;
 import com.codurance.shoppingbasket.service.ShoppingBasketService;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
+@ExtendWith(MockitoExtension.class)
 public class ShoppingBasketServiceShould {
     public static final int USER_ID = 1;
     public static final int ITEM_ID = 1;
     public static final String ITEM_NAME = "A product";
-    private final ShoppingBasketService shoppingBasketService = new ShoppingBasketService();
+    @Mock
+    private ShoppingBasketFactory shoppingBasketFactory;
+    @InjectMocks
+    private ShoppingBasketService shoppingBasketService;
 
     @Test
     public void create_shopping_basket_when_first_product_is_added() {
@@ -20,12 +29,6 @@ public class ShoppingBasketServiceShould {
         assertNull(shoppingBasket);
 
         shoppingBasketService.addItem(USER_ID, ITEM_ID, 1);
-
-        shoppingBasket = shoppingBasketService.basketFor(USER_ID);
-        assertEquals(USER_ID, shoppingBasket.ownerId());
-
-        Product purchasedProduct = new Product(ITEM_ID, ITEM_NAME, 2);
-        assertEquals(purchasedProduct, shoppingBasket.products().stream().findFirst().get());
-        assertEquals(1, shoppingBasket.products().size());
+        verify(shoppingBasketFactory, times(1)).create(USER_ID);
     }
 }
