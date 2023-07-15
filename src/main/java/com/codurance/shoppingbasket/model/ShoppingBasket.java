@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class ShoppingBasket {
     private final int ownerId;
+    private final ArrayList products = new ArrayList();
 
     public ShoppingBasket(int ownerId)
     {
@@ -15,6 +16,6 @@ public class ShoppingBasket {
     }
 
     public ArrayList products() {
-        throw new UnsupportedOperationException("com.codurance.shoppingbasket.model.ShoppingBasket::ownerId not implemented yet");
+        return products;
     }
 }
