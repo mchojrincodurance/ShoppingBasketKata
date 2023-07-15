@@ -18,4 +18,7 @@ public class ShoppingBasket {
     public ArrayList products() {
         return products;
     }
+
+    public void add(Product product) {
+    }
 }
