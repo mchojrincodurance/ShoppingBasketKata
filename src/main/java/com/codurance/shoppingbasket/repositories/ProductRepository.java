@@ -15,4 +15,8 @@ public class ProductRepository {
 
         return (Product) database.findBy("product", "name", productName);
     }
+
+    public Product find(int itemId) {
+        throw new UnsupportedOperationException("Not implemented yet");
+    }
 }
