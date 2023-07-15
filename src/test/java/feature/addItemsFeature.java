@@ -3,6 +3,7 @@ package feature;
 import com.codurance.shoppingbasket.controller.MainController;
 import com.codurance.shoppingbasket.infrastructure.MyConsole;
 import com.codurance.shoppingbasket.infrastructure.ShoppingBasketRenderer;
+import com.codurance.shoppingbasket.model.ShoppingBasketFactory;
 import com.codurance.shoppingbasket.repositories.ProductRepository;
 import com.codurance.shoppingbasket.service.ShoppingBasketService;
 import infrastructure.Database;
@@ -21,7 +22,7 @@ public class addItemsFeature {
 
     @Before
     public void setUp() {
-        mainController = new MainController(new ShoppingBasketRenderer(console), new ShoppingBasketService(), new ProductRepository(new Database()));
+        mainController = new MainController(new ShoppingBasketRenderer(console), new ShoppingBasketService(new ShoppingBasketFactory()), new ProductRepository(new Database()));
     }
 
     /**
