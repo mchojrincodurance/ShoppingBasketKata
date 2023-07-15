@@ -24,6 +24,7 @@ public class ShoppingBasketServiceShould {
     private static final String ITEM_NAME = "An item";
     private static final int ITEM_QUANTITY = 2;
     private static final int ITEM_PRICE = 6;
+    private static final int OTHER_USER_ID = 2;
     @Spy
     private ShoppingBasketFactory shoppingBasketFactory;
     @InjectMocks
@@ -47,13 +48,14 @@ public class ShoppingBasketServiceShould {
     public void create_different_shopping_baskets_for_different_users() {
         shoppingBasketService = new ShoppingBasketService(shoppingBasketFactory, shoppingBasketRepository, productRepository);
 
-        shoppingBasketService.addItem(1, 1, 2);
-        shoppingBasketService.addItem(2, 1, 2);
+        shoppingBasketService.addItem(USER_ID, ITEM_ID, 2);
+        shoppingBasketService.addItem(OTHER_USER_ID, ITEM_ID, 3);
 
-        ShoppingBasket firstUserBasket = shoppingBasketService.basketFor(1);
-        ShoppingBasket secondUserBasket = shoppingBasketService.basketFor(2);
+        ShoppingBasket firstUserBasket = shoppingBasketService.basketFor(USER_ID);
+        ShoppingBasket secondUserBasket = shoppingBasketService.basketFor(OTHER_USER_ID);
 
-        assertNotEquals(firstUserBasket, secondUserBasket);
+        assertEquals(0, firstUserBasket.productOrders().stream().filter((elem) -> elem.quantity() == 3).count());
+        assertEquals(0, secondUserBasket.productOrders().stream().filter((elem) -> elem.quantity() == 2).count());
     }
 
     @Test
