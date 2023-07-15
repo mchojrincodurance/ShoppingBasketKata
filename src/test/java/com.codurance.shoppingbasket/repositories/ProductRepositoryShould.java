@@ -1,4 +1,4 @@
-package repositories;
+package com.codurance.shoppingbasket.repositories;
 
 import com.codurance.shoppingbasket.model.Product;
 import com.codurance.shoppingbasket.repositories.ProductRepository;

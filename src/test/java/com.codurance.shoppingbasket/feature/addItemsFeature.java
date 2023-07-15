@@ -1,4 +1,4 @@
-package feature;
+package com.codurance.shoppingbasket.feature;
 
 import com.codurance.shoppingbasket.controller.MainController;
 import com.codurance.shoppingbasket.infrastructure.MyConsole;
