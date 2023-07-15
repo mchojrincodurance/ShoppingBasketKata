@@ -12,6 +12,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import shoppingbasket.repositories.ShoppingBasketRepository;
 
 import static org.mockito.Mockito.verify;
 
@@ -22,7 +23,7 @@ public class addItemsFeature {
 
     @Before
     public void setUp() {
-        mainController = new MainController(new ShoppingBasketRenderer(console), new ShoppingBasketService(new ShoppingBasketFactory()), new ProductRepository(new Database()));
+        mainController = new MainController(new ShoppingBasketRenderer(console), new ShoppingBasketService(new ShoppingBasketFactory(), new ShoppingBasketRepository()), new ProductRepository(new Database()));
     }
 
     /**
