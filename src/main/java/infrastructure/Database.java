@@ -8,8 +8,8 @@ import java.util.HashMap;
 
 public class Database {
 
-    private final HashMap<String, ArrayList<Object>> records = new HashMap<String, ArrayList<Object>>() {{
-        put("product", new ArrayList<Object>(
+    private final HashMap<String, ArrayList<Object>> records = new HashMap<>() {{
+        put("product", new ArrayList<>(
                         Arrays.asList(
                                 new Product(10001, "Lord of the Rings", 10),
                                 new Product(10002, "The hobbit", 5),
@@ -18,7 +18,7 @@ public class Database {
                         )
                 )
         );
-        put("shopping_basket", new ArrayList<Object>());
+        put("shopping_basket", new ArrayList<>());
     }};
 
     public Object findBy(String ObjectType, String field, String value) {
