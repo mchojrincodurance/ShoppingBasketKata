@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class ShoppingBasket {
     private final int ownerId;
-    private final ArrayList<ProductOrder> productOrders = new ArrayList();
+    private final ArrayList<ProductOrder> productOrders = new ArrayList<>();
 
     public ShoppingBasket(int ownerId)
     {
