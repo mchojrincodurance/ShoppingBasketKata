@@ -2,16 +2,18 @@ package com.codurance.shoppingbasket.service;
 
 import com.codurance.shoppingbasket.model.ShoppingBasket;
 
-public class ShoppingBasketService {
-    public void addItem(int userId, int itemId, int quantity) {
-        throw new UnsupportedOperationException("service.ShoppingBasketService::addItem not implemented yet");
-    }
+import java.util.HashMap;
 
-    public ShoppingBasket create(int userId) {
-        return null;
+public class ShoppingBasketService {
+    private HashMap<String, ShoppingBasket> shoppingBaskets = new HashMap<String, ShoppingBasket>();
+
+    public void addItem(int userId, int itemId, int quantity) {
+        if (!shoppingBaskets.containsKey(Integer.toString(userId))) {
+            shoppingBaskets.put(Integer.toString(userId), new ShoppingBasket(userId));
+        }
     }
 
     public ShoppingBasket basketFor(int userId) {
-        return null;
+        return shoppingBaskets.containsKey(Integer.toString(userId)) ? shoppingBaskets.get(Integer.toString(userId)) : null;
     }
 }
