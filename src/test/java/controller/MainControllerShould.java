@@ -65,7 +65,7 @@ public class MainControllerShould {
 
     @Test
     public void allow_checking_basket_content() {
-        ShoppingBasket shoppingBasket = new ShoppingBasket();
+        ShoppingBasket shoppingBasket = new ShoppingBasket(USER_ID);
 
         when(shoppingBasketService.basketFor(USER_ID)).thenReturn(shoppingBasket);
 
