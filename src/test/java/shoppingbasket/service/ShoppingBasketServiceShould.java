@@ -51,6 +51,7 @@ public class ShoppingBasketServiceShould {
 
     @Test
     public void persist_shopping_baskets() {
+        shoppingBasketService.addItem(USER_ID, ITEM_ID, 1);
         ShoppingBasket shoppingBasket = shoppingBasketService.basketFor(USER_ID);
 
         verify(shoppingBasketRepository).save(shoppingBasket);

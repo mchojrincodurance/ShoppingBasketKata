@@ -27,6 +27,7 @@ public class ShoppingBasketService {
         }
 
 //        basketFor(userId).add(new Product(itemId, "", 10));
+        shoppingBasketRepository.save(basketFor(userId));
     }
 
     public ShoppingBasket basketFor(int userId) {
