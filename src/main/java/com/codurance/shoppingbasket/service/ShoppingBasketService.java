@@ -31,7 +31,7 @@ public class ShoppingBasketService {
             shoppingBaskets.put(userKey, newShoppingBasket);
         }
 
-        basketFor(userId).add(new ProductOrder(new Product(itemId, "An item", 6), quantity));
+        basketFor(userId).add(new ProductOrder(productRepository.find(itemId), quantity));
         shoppingBasketRepository.save(basketFor(userId));
     }
 

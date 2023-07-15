@@ -45,7 +45,7 @@ public class ShoppingBasketServiceShould {
 
     @Test
     public void create_different_shopping_baskets_for_different_users() {
-        shoppingBasketService = new ShoppingBasketService(shoppingBasketFactory, shoppingBasketRepository,productRepository );
+        shoppingBasketService = new ShoppingBasketService(shoppingBasketFactory, shoppingBasketRepository, productRepository);
 
         shoppingBasketService.addItem(1, 1, 2);
         shoppingBasketService.addItem(2, 1, 2);
@@ -66,15 +66,17 @@ public class ShoppingBasketServiceShould {
 
     @Test
     public void add_items_to_the_shopping_basket() {
+        Product product = new Product(ITEM_ID, ITEM_NAME, ITEM_PRICE);
+        when(productRepository.find(ITEM_ID)).thenReturn(product);
+
         shoppingBasketService.addItem(USER_ID, ITEM_ID, ITEM_QUANTITY);
         ShoppingBasket shoppingBasket = shoppingBasketService.basketFor(USER_ID);
 
-        Product product = new Product(ITEM_ID, ITEM_NAME, ITEM_PRICE);
-
-        when(productRepository.find(ITEM_ID)).thenReturn(product);
-
-        ProductOrder productOrder = new ProductOrder(product, ITEM_QUANTITY);
-
-        assertTrue(shoppingBasket.productOrders().contains(productOrder));
+        assertEquals(1, shoppingBasket.
+                productOrders()
+                .stream()
+                .filter((order) -> order.product() == product && order.quantity() == ITEM_QUANTITY)
+                .count()
+        );
     }
 }
