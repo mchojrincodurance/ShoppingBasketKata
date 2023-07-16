@@ -26,7 +26,7 @@ public class addItemsFeature {
         Database database = new Database();
         ProductRepository productRepository = new ProductRepository(database);
 
-        mainController = new MainController(new ShoppingBasketRenderer(console), new ShoppingBasketService(new ShoppingBasketFactory(), new ShoppingBasketRepository(), productRepository), productRepository);
+        mainController = new MainController(new ShoppingBasketRenderer(console), new ShoppingBasketService(new ShoppingBasketFactory(), new ShoppingBasketRepository(database), productRepository), productRepository);
     }
 
     /**
@@ -43,7 +43,7 @@ public class addItemsFeature {
     @Test
     public void print_basket_contents_with_total() {
         mainController.addItem(1, "The hobbit", 2);
-        mainController.addItem(1, "Breaking bad", 5);
+        mainController.addItem(1, "Breaking Bad", 5);
 
         mainController.checkBasketContent(1);
 
