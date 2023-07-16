@@ -1,7 +1,6 @@
 package com.codurance.shoppingbasket.repositories;
 
 import com.codurance.shoppingbasket.model.Product;
-import com.codurance.shoppingbasket.repositories.ProductRepository;
 import infrastructure.Database;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
