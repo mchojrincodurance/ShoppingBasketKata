@@ -2,15 +2,18 @@ package com.codurance.shoppingbasket.model;
 
 import shoppingbasket.model.ProductOrder;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class ShoppingBasket {
     private final int ownerId;
+    private final LocalDate createdAt;
     private final ArrayList<ProductOrder> productOrders = new ArrayList<>();
 
-    public ShoppingBasket(int ownerId)
+    public ShoppingBasket(int ownerId, LocalDate createdAt)
     {
         this.ownerId = ownerId;
+        this.createdAt = createdAt;
     }
 
     public int ownerId() {
@@ -23,5 +26,20 @@ public class ShoppingBasket {
 
     public void add(ProductOrder productOrder) {
         productOrders.add(productOrder);
+    }
+
+    public LocalDate createdAt()
+    {
+        return createdAt;
+    }
+
+    public float total() {
+        float total = 0;
+
+        for ( ProductOrder po : productOrders ) {
+            total += po.product().price() * po.quantity();
+        }
+
+        return total;
     }
 }
