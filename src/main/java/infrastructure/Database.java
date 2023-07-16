@@ -1,6 +1,7 @@
 package infrastructure;
 
 import com.codurance.shoppingbasket.model.Product;
+import com.codurance.shoppingbasket.model.ShoppingBasket;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,6 +20,7 @@ public class Database {
                 )
         );
         put("shopping_basket", new ArrayList<>());
+        put("product_order", new ArrayList<>());
     }};
 
     public Object findBy(String ObjectType, String field, String value) {
@@ -44,5 +46,15 @@ public class Database {
         }
 
         throw new UnsupportedOperationException("infrastructure.Database::findBy not implemented yet");
+    }
+
+    public void insertProductOrder(int shoppingBasketId, HashMap<String, String> fieldValues) {
+        records.get("product_order").add(fieldValues);
+    }
+
+    public int insertShoppingBasket(int ownerId) {
+        records.get("shopping_basket").add(new ShoppingBasket(ownerId));
+
+        return 1;
     }
 }
