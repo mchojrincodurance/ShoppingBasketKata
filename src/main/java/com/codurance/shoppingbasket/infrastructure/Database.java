@@ -1,4 +1,4 @@
-package infrastructure;
+package com.codurance.shoppingbasket.infrastructure;
 
 import java.util.HashMap;
 import java.util.Map;

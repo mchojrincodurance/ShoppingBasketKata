@@ -10,7 +10,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.InjectMocks;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
-import shoppingbasket.model.ProductOrder;
+import com.codurance.shoppingbasket.model.ProductOrder;
 
 import java.time.LocalDate;
 import java.util.stream.Stream;

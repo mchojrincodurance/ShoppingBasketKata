@@ -2,14 +2,13 @@ package com.codurance.shoppingbasket.repositories;
 
 import com.codurance.shoppingbasket.model.Product;
 import com.codurance.shoppingbasket.model.ShoppingBasket;
-import infrastructure.Database;
+import com.codurance.shoppingbasket.infrastructure.Database;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import shoppingbasket.model.ProductOrder;
-import shoppingbasket.repositories.ShoppingBasketRepository;
+import com.codurance.shoppingbasket.model.ProductOrder;
 
 import java.time.LocalDate;
 import java.util.HashMap;

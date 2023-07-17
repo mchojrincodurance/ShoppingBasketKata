@@ -7,14 +7,14 @@ import com.codurance.shoppingbasket.presentation.ShoppingBasketRenderer;
 import com.codurance.shoppingbasket.model.ShoppingBasketFactory;
 import com.codurance.shoppingbasket.repositories.ProductRepository;
 import com.codurance.shoppingbasket.service.ShoppingBasketService;
-import infrastructure.Database;
+import com.codurance.shoppingbasket.infrastructure.Database;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import shoppingbasket.repositories.ShoppingBasketRepository;
+import com.codurance.shoppingbasket.repositories.ShoppingBasketRepository;
 
 import java.time.LocalDate;
 

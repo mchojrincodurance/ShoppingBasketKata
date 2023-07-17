@@ -1,11 +1,10 @@
 package com.codurance.shoppingbasket.service;
 
-import com.codurance.shoppingbasket.model.Product;
 import com.codurance.shoppingbasket.model.ShoppingBasket;
 import com.codurance.shoppingbasket.model.ShoppingBasketFactory;
 import com.codurance.shoppingbasket.repositories.ProductRepository;
-import shoppingbasket.model.ProductOrder;
-import shoppingbasket.repositories.ShoppingBasketRepository;
+import com.codurance.shoppingbasket.model.ProductOrder;
+import com.codurance.shoppingbasket.repositories.ShoppingBasketRepository;
 
 import java.util.HashMap;
 

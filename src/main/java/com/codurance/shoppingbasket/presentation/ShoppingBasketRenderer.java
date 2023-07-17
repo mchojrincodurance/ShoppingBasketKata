@@ -2,7 +2,7 @@ package com.codurance.shoppingbasket.presentation;
 
 import com.codurance.shoppingbasket.infrastructure.MyConsole;
 import com.codurance.shoppingbasket.model.ShoppingBasket;
-import shoppingbasket.model.ProductOrder;
+import com.codurance.shoppingbasket.model.ProductOrder;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;

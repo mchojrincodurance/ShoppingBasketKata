@@ -1,7 +1,7 @@
 package com.codurance.shoppingbasket.repositories;
 
 import com.codurance.shoppingbasket.model.Product;
-import infrastructure.Database;
+import com.codurance.shoppingbasket.infrastructure.Database;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

@@ -1,8 +1,8 @@
-package shoppingbasket.repositories;
+package com.codurance.shoppingbasket.repositories;
 
 import com.codurance.shoppingbasket.model.ShoppingBasket;
-import infrastructure.Database;
-import shoppingbasket.model.ProductOrder;
+import com.codurance.shoppingbasket.infrastructure.Database;
+import com.codurance.shoppingbasket.model.ProductOrder;
 
 import java.util.HashMap;
 

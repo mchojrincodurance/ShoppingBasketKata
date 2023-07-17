@@ -1,7 +1,5 @@
 package com.codurance.shoppingbasket.model;
 
-import shoppingbasket.model.ProductOrder;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 

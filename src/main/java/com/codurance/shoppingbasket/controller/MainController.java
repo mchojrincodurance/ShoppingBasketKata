@@ -20,10 +20,10 @@ public class MainController {
     }
 
     public void addItem(int userId, String productName, int quantity) {
-        shoppingBasketService.addItem(userId, findIdFor(productName), quantity);
+        shoppingBasketService.addItem(userId, findIdForProduct(productName), quantity);
     }
 
-    private int findIdFor(String productName) {
+    private int findIdForProduct(String productName) {
 
         return productRepository.find(productName).id();
     }

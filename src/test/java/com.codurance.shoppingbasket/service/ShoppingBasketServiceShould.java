@@ -4,15 +4,13 @@ import com.codurance.shoppingbasket.model.Product;
 import com.codurance.shoppingbasket.model.ShoppingBasket;
 import com.codurance.shoppingbasket.model.ShoppingBasketFactory;
 import com.codurance.shoppingbasket.repositories.ProductRepository;
-import com.codurance.shoppingbasket.service.ShoppingBasketService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
-import shoppingbasket.model.ProductOrder;
-import shoppingbasket.repositories.ShoppingBasketRepository;
+import com.codurance.shoppingbasket.repositories.ShoppingBasketRepository;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
