@@ -1,7 +1,5 @@
 package com.codurance.shoppingbasket.model;
 
-import com.codurance.shoppingbasket.model.Product;
-
 public class ProductOrder {
     private final Product product;
     private final int quantity;
