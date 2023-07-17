@@ -69,10 +69,14 @@ public class Database {
                 ;
     }
 
-    public int insert(String objectType, HashMap<String, String> assignements) {
-        records.get(objectType)
-                .put(Integer.toString(nextObjectId++), assignements);
+    public int insert(String objectType, HashMap<String, String> assignments) {
+        String id = assignments.containsKey(ID) ? assignments.get(ID) : Integer.toString(nextObjectId++);
 
-        return nextObjectId;
+        records.get(objectType)
+                .put(
+                        id, assignments
+                );
+
+        return Integer.parseInt(id);
     }
 }
