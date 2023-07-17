@@ -35,8 +35,6 @@ public class MainControllerShould {
     private static final float SECOND_PRODUCT_PRICE = 7;
 
     @Mock
-    private MyConsole console;
-    @Mock
     private ShoppingBasketService shoppingBasketService;
     @Mock
     private ProductRepository productRepository;
