@@ -3,7 +3,7 @@ package com.codurance.shoppingbasket.feature;
 import com.codurance.shoppingbasket.controller.MainController;
 import com.codurance.shoppingbasket.infrastructure.MyClock;
 import com.codurance.shoppingbasket.infrastructure.MyConsole;
-import com.codurance.shoppingbasket.infrastructure.ShoppingBasketRenderer;
+import com.codurance.shoppingbasket.presentation.ShoppingBasketRenderer;
 import com.codurance.shoppingbasket.model.ShoppingBasketFactory;
 import com.codurance.shoppingbasket.repositories.ProductRepository;
 import com.codurance.shoppingbasket.service.ShoppingBasketService;

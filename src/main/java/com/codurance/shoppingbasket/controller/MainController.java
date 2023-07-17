@@ -1,6 +1,6 @@
 package com.codurance.shoppingbasket.controller;
 
-import com.codurance.shoppingbasket.infrastructure.ShoppingBasketRenderer;
+import com.codurance.shoppingbasket.presentation.ShoppingBasketRenderer;
 import com.codurance.shoppingbasket.repositories.ProductRepository;
 import com.codurance.shoppingbasket.service.ShoppingBasketService;
 
