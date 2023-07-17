@@ -22,6 +22,7 @@ public class ShoppingBasket {
         return productOrders;
     }
 
+    @Deprecated
     public void add(ProductOrder productOrder) {
         productOrders.add(productOrder);
     }
@@ -36,5 +37,9 @@ public class ShoppingBasket {
                 .stream()
                 .map(ProductOrder::subtotal)
                 .reduce(0F, Float::sum);
+    }
+
+    public void add(Product product, int quantity) {
+        add(new ProductOrder(product, quantity));
     }
 }

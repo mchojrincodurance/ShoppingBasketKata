@@ -10,20 +10,39 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ShoppingBasketShould {
+
+    public static final int OWNER_ID = 1;
+    public static final int OTHER_OWNER_ID = 2;
+    public static final String FIRST_PRODUCT_NAME = "Product 1";
+    public static final int FIRST_PRODUCT_PRICE = 10;
+    private static final int FIRST_PRODUCT_ID = 1;
+    public static final int FIRST_PRODUCT_FIRST_BASKET_QUANTITY = 2;
+    public static final String SECOND_PRODUCT_NAME = "Product 2";
+    private static final int SECOND_PRODUCT_ID = 2;
+    private static final int SECOND_PRODUCT_FIRST_BASKET_QUANTITY = 5;
+    private static final float SECOND_PRODUCT_PRICE = 10.5F;
+    public static final int THIRD_PRODUCT_ID = 3;
+    public static final String THIRD_PRODUCT_NAME = "Product 3";
+    public static final float THIRD_PRODUCT_PRICE = 15.6F;
+    private static final int FIRST_PRODUCT_SECOND_BASKET_QUANTITY = 3;
+    private static final int THIRD_PRODUCT_SECOND_BASKET_QUANTITY = 4;
+
     public static Stream<Arguments> shoppingBasketProvider() {
-        ShoppingBasket secondShoppingBasket = new ShoppingBasket(1, LocalDate.now());
-        ShoppingBasket firstShoppingBasket = new ShoppingBasket(1, LocalDate.now());
+        Product firstProduct = new Product(FIRST_PRODUCT_ID, FIRST_PRODUCT_NAME, FIRST_PRODUCT_PRICE);
+        Product secondProduct = new Product(SECOND_PRODUCT_ID, SECOND_PRODUCT_NAME, SECOND_PRODUCT_PRICE);
+        Product thirdProduct = new Product(THIRD_PRODUCT_ID, THIRD_PRODUCT_NAME, THIRD_PRODUCT_PRICE);
 
-        Product product1 = new Product(1, "Product 1", 10);
-        firstShoppingBasket.add(new ProductOrder(product1, 2));
-        firstShoppingBasket.add(new ProductOrder(new Product(2, "Product 2", 2), 1));
+        ShoppingBasket firstShoppingBasket = new ShoppingBasket(OWNER_ID, LocalDate.now());
+        firstShoppingBasket.add(firstProduct, FIRST_PRODUCT_FIRST_BASKET_QUANTITY);
+        firstShoppingBasket.add(secondProduct, SECOND_PRODUCT_FIRST_BASKET_QUANTITY);
 
-        secondShoppingBasket.add(new ProductOrder(new Product(3, "Product 3", 15.6F), 1));
-        secondShoppingBasket.add(new ProductOrder(product1, 1));
+        ShoppingBasket secondShoppingBasket = new ShoppingBasket(OTHER_OWNER_ID, LocalDate.now());
+        secondShoppingBasket.add(firstProduct, FIRST_PRODUCT_SECOND_BASKET_QUANTITY);
+        secondShoppingBasket.add(thirdProduct, THIRD_PRODUCT_SECOND_BASKET_QUANTITY);
 
         return Stream.of(
-            Arguments.of(firstShoppingBasket, 22F),
-                Arguments.of(secondShoppingBasket, 25.6F)
+            Arguments.of(firstShoppingBasket, FIRST_PRODUCT_FIRST_BASKET_QUANTITY * FIRST_PRODUCT_PRICE + SECOND_PRODUCT_FIRST_BASKET_QUANTITY * SECOND_PRODUCT_PRICE),
+                Arguments.of(secondShoppingBasket, FIRST_PRODUCT_SECOND_BASKET_QUANTITY * FIRST_PRODUCT_PRICE + THIRD_PRODUCT_SECOND_BASKET_QUANTITY * THIRD_PRODUCT_PRICE)
         );
     }
 
