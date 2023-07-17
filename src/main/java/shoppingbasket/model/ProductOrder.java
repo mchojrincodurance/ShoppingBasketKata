@@ -20,4 +20,8 @@ public class ProductOrder {
     {
         return quantity;
     }
+
+    public float subtotal() {
+        return product().price() * quantity;
+    }
 }

@@ -37,7 +37,7 @@ public class ShoppingBasket {
         float total = 0;
 
         for ( ProductOrder po : productOrders ) {
-            total += po.product().price() * po.quantity();
+            total += po.subtotal();
         }
 
         return total;
