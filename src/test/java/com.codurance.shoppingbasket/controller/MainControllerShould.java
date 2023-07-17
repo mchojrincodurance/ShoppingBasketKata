@@ -1,6 +1,5 @@
 package com.codurance.shoppingbasket.controller;
 
-import com.codurance.shoppingbasket.controller.MainController;
 import com.codurance.shoppingbasket.infrastructure.MyConsole;
 import com.codurance.shoppingbasket.model.Product;
 import com.codurance.shoppingbasket.model.ShoppingBasket;
@@ -16,6 +15,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDate;
 import java.util.stream.Stream;
 
 import static org.mockito.ArgumentMatchers.eq;
@@ -65,7 +65,7 @@ public class MainControllerShould {
 
     @Test
     public void allow_checking_basket_content() {
-        ShoppingBasket shoppingBasket = new ShoppingBasket(USER_ID);
+        ShoppingBasket shoppingBasket = new ShoppingBasket(USER_ID, LocalDate.now());
 
         when(shoppingBasketService.basketFor(USER_ID)).thenReturn(shoppingBasket);
 
