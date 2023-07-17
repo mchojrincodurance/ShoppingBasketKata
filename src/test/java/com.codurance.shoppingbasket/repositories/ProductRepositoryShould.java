@@ -1,7 +1,7 @@
 package com.codurance.shoppingbasket.repositories;
 
-import com.codurance.shoppingbasket.model.Product;
 import com.codurance.shoppingbasket.infrastructure.Database;
+import com.codurance.shoppingbasket.model.Product;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -9,7 +9,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
@@ -49,25 +48,10 @@ public class ProductRepositoryShould {
         assertEquals(theHobbit.price(), actual.price());
     }
 
-    private static Map.Entry<String, HashMap<String, String>> buildProductRecord() {
-        return new Map.Entry<>() {
-            @Override
-            public String getKey() {
-                return Integer.toString(PRODUCT_ID);
-            }
-
-            @Override
-            public HashMap<String, String> getValue() {
-                return new HashMap<>() {{
-                    put(Database.NAME, PRODUCT_NAME);
-                    put(Database.PRICE, Float.toString(PRODUCT_PRICE));
-                }};
-            }
-
-            @Override
-            public HashMap<String, String> setValue(HashMap<String, String> value) {
-                return null;
-            }
-        };
+    private static HashMap<String, String> buildProductRecord() {
+        return new HashMap<>() {{
+            put(Database.NAME, PRODUCT_NAME);
+            put(Database.PRICE, Float.toString(PRODUCT_PRICE));
+        }};
     }
 }

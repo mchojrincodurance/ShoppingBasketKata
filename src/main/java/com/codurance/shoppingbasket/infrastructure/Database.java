@@ -1,7 +1,7 @@
 package com.codurance.shoppingbasket.infrastructure;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 public class Database {
 
@@ -18,30 +18,30 @@ public class Database {
     public static final String PRICE = "price";
     private int nextObjectId = 1;
 
-    private final HashMap<String, HashMap<String, HashMap<String, String>>> records = new HashMap<>() {{
-        put(PRODUCT, new HashMap<>());
-        put(SHOPPING_BASKET, new HashMap<>());
-        put(PRODUCT_ORDER, new HashMap<>());
+    private final HashMap<String, ArrayList<HashMap<String, String>>> records = new HashMap<>() {{
+        put(PRODUCT, new ArrayList<>());
+        put(SHOPPING_BASKET, new ArrayList<>());
+        put(PRODUCT_ORDER, new ArrayList<>());
     }};
 
-    public Map.Entry<String, HashMap<String, String>> findBy(String ObjectType, String field, String value) {
+    public HashMap<String, String> findBy(String ObjectType, String field, String value) {
         return records
                 .get(ObjectType)
-                .entrySet()
                 .stream()
-                .filter((element) -> (element.getValue().get(field).equals(value)))
+                .filter((element) -> (element.get(field).equals(value)))
                 .findFirst()
-                .get()
-                ;
+                .orElse(null);
     }
 
     public int insert(String objectType, HashMap<String, String> assignments) {
-        String id = assignments.containsKey(ID) ? assignments.get(ID) : Integer.toString(nextObjectId++);
+        if (!assignments.containsKey(ID)) {
+            assignments.put(ID, Integer.toString(nextObjectId++));
+        }
 
         records
                 .get(objectType)
-                .put(id, assignments);
+                .add(assignments);
 
-        return Integer.parseInt(id);
+        return Integer.parseInt(assignments.get(ID));
     }
 }
