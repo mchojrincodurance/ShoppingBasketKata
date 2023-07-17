@@ -63,14 +63,13 @@ public class Database {
                 .get(ObjectType)
                 .entrySet()
                 .stream()
-                .filter((element) -> (element.getKey().equals(field) && element.getValue().equals(value)))
+                .filter((element) -> (element.getValue().get(field).equals(value)))
                 .findFirst()
                 .get()
                 ;
     }
 
-    public int insert(String objectType, HashMap<String, String> assignements)
-    {
+    public int insert(String objectType, HashMap<String, String> assignements) {
         records.get(objectType)
                 .put(Integer.toString(nextObjectId++), assignements);
 
