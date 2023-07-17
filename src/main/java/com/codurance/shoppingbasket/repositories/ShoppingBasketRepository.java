@@ -17,15 +17,13 @@ public class ShoppingBasketRepository {
     public void save(ShoppingBasket shoppingBasket) {
         int basketId = database.insert(Database.SHOPPING_BASKET, mapForDatabase(shoppingBasket));
 
-        for(ProductOrder po: shoppingBasket.productOrders()) {
-            save(basketId, po);
-        }
+        shoppingBasket
+                .productOrders()
+                .forEach(productOrder -> save(basketId, productOrder));
     }
 
-    private void save(int basketId, ProductOrder po) {
-        HashMap<String, String> mappedPo = mapForDatabase(po);
-        mappedPo.put(Database.BASKET_ID, Integer.toString(basketId));
-        database.insert(Database.PRODUCT_ORDER, mappedPo);
+    private void save(int basketId, ProductOrder productOrder) {
+        database.insert(Database.PRODUCT_ORDER, mapForDatabase(productOrder, basketId));
     }
 
     private static HashMap<String, String> mapForDatabase(ShoppingBasket shoppingBasket) {
@@ -35,10 +33,11 @@ public class ShoppingBasketRepository {
         }};
     }
 
-    private static HashMap<String, String> mapForDatabase(ProductOrder po) {
+    private static HashMap<String, String> mapForDatabase(ProductOrder productOrder, int shoppingBasketId) {
         return new HashMap<>() {{
-            put(Database.ITEM_ID, Integer.toString(po.product().id()));
-            put(Database.ITEM_QUANTITY, Integer.toString(po.quantity()));
+            put(Database.ITEM_ID, Integer.toString(productOrder.product().id()));
+            put(Database.ITEM_QUANTITY, Integer.toString(productOrder.quantity()));
+            put(Database.BASKET_ID, Integer.toString(shoppingBasketId));
         }};
     }
 }
