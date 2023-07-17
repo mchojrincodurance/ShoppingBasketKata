@@ -10,8 +10,8 @@ public class ShoppingBasketFactory {
         this.clock = clock;
     }
 
-    public ShoppingBasket create(int userId) {
+    public ShoppingBasket create(int ownerId) {
 
-        return new ShoppingBasket(userId, clock.getCurrentDate());
+        return new ShoppingBasket(ownerId, clock.getCurrentDate());
     }
 }
