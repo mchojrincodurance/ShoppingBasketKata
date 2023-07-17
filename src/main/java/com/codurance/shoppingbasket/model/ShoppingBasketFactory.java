@@ -3,7 +3,7 @@ package com.codurance.shoppingbasket.model;
 import com.codurance.shoppingbasket.infrastructure.MyClock;
 
 public class ShoppingBasketFactory {
-    private MyClock clock;
+    private final MyClock clock;
 
     public ShoppingBasketFactory(MyClock clock)
     {
