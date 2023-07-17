@@ -11,23 +11,43 @@ import infrastructure.Database;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import shoppingbasket.repositories.ShoppingBasketRepository;
 
+import java.time.LocalDate;
+
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class addItemsFeature {
-    @Mock MyConsole console;
+    public static final String THE_HOBBIT = "The Hobbit";
+    public static final String BREAKING_BAD = "Breaking Bad";
+    public static final int THE_HOBBIT_QUANTITY = 2;
+    public static final int BREAKING_BAD_QUANTITY = 5;
+    public static final int USER_ID = 1;
+    private final Database database = new Database();
+    private final ProductRepository productRepository = new ProductRepository(database);
+    private final ShoppingBasketRepository shoppingBasketRepository = new ShoppingBasketRepository(database);
+    @Mock
+    private MyClock clock;
+    @InjectMocks
+    private ShoppingBasketFactory shoppingBasketFactory;
+    @Mock
+    MyConsole console;
+    @InjectMocks
+    private ShoppingBasketRenderer shoppingBasketRenderer;
     private MainController mainController;
 
     @Before
     public void setUp() {
-        Database database = new Database();
-        ProductRepository productRepository = new ProductRepository(database);
-
-        mainController = new MainController(new ShoppingBasketRenderer(console), new ShoppingBasketService(new ShoppingBasketFactory(new MyClock()), new ShoppingBasketRepository(database), productRepository), productRepository);
+        mainController = new MainController(shoppingBasketRenderer, new ShoppingBasketService(
+                shoppingBasketFactory,
+                shoppingBasketRepository,
+                productRepository
+        ), productRepository);
     }
 
     /**
@@ -43,13 +63,15 @@ public class addItemsFeature {
 
     @Test
     public void print_basket_contents_with_total() {
-        mainController.addItem(1, "The hobbit", 2);
-        mainController.addItem(1, "Breaking Bad", 5);
+        when(clock.getCurrentDate()).thenReturn(LocalDate.parse("2023-07-14"));
 
-        mainController.checkBasketContent(1);
+        mainController.addItem(USER_ID, THE_HOBBIT, THE_HOBBIT_QUANTITY);
+        mainController.addItem(USER_ID, BREAKING_BAD, BREAKING_BAD_QUANTITY);
+
+        mainController.checkBasketContent(USER_ID);
 
         verify(console).printLine("Creation date of the shopping basket: 2023-07-14");
-        verify(console).printLine("2 x The Hobbit   // 2 x 5.00 = £10.00");
+        verify(console).printLine("2 x The Hobbit // 2 x 5.00 = £10.00");
         verify(console).printLine("5 x Breaking Bad // 5 x 7.00 = £35.00");
         verify(console).printLine("Total: £45.00");
     }
