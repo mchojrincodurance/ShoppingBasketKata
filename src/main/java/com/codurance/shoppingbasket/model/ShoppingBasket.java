@@ -22,8 +22,7 @@ public class ShoppingBasket {
         return productOrders;
     }
 
-    @Deprecated
-    public void add(ProductOrder productOrder) {
+    private void add(ProductOrder productOrder) {
         productOrders.add(productOrder);
     }
 
