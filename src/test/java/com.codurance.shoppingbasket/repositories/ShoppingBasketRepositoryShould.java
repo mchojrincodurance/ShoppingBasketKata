@@ -34,7 +34,7 @@ public class ShoppingBasketRepositoryShould {
     public void persist_shopping_baskets_to_database() {
         LocalDate now = buildLocalDate();
         ShoppingBasket shoppingBasket = buildShoppingBasket(now);
-        shoppingBasket.add(buildProductOrder());
+        shoppingBasket.add(buildProduct(),Integer.parseInt(ITEM_QUANTITY));
 
         when(
                 database.insert(Database.SHOPPING_BASKET, buildShoppingBasketData(now))
@@ -68,13 +68,6 @@ public class ShoppingBasketRepositoryShould {
             put(Database.OWNER_ID, USER_ID);
             put(Database.CREATED_AT, now.toString());
         }};
-    }
-
-    private static ProductOrder buildProductOrder() {
-        return new ProductOrder(
-                buildProduct(),
-                Integer.parseInt(ITEM_QUANTITY)
-        );
     }
 
     private static Product buildProduct() {

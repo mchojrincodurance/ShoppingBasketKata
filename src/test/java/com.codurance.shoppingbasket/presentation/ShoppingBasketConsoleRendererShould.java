@@ -47,16 +47,16 @@ public class ShoppingBasketConsoleRendererShould {
         Product theHobbit = new Product(THE_HOBBIT_ID, THE_HOBBIT, THE_HOBBIT_PRICE);
 
         ShoppingBasket firstShoppingBasket = new ShoppingBasket(OWNER_ID, LocalDate.parse(PURCHASE_DATE));
-        firstShoppingBasket.add(new ProductOrder(theHobbit, THE_HOBBIT_ORDERED_QUANTITY));
+        firstShoppingBasket.add(theHobbit, THE_HOBBIT_ORDERED_QUANTITY);
 
         Product breakingBad = new Product(BREAKING_BAD_ID, BREAKING_BAD, BREAKING_BAD_PRICE);
-        firstShoppingBasket.add(new ProductOrder(breakingBad, BREAKING_BAD_ORDERED_QUANTITY));
+        firstShoppingBasket.add(breakingBad, BREAKING_BAD_ORDERED_QUANTITY);
 
         Product aliceInWonderland = new Product(ALICE_IN_WONDERLAND_ID, ALICE_IN_WONDERLAND, ALICE_IN_WONDERLAND_PRICE);
 
         ShoppingBasket secondShoppingBasket = new ShoppingBasket(OTHER_OWNER_ID, LocalDate.parse(OTHER_PURCHASE_DATE));
-        secondShoppingBasket.add(new ProductOrder(aliceInWonderland, ALICE_IN_WONDERLAND_ORDERED_QUANTITY));
-        secondShoppingBasket.add(new ProductOrder(breakingBad, BREAKING_BAD_ORDERED_QUANTITY + 1));
+        secondShoppingBasket.add(aliceInWonderland, ALICE_IN_WONDERLAND_ORDERED_QUANTITY);
+        secondShoppingBasket.add(breakingBad, BREAKING_BAD_ORDERED_QUANTITY + 1);
 
         return Stream.of(
                 Arguments.of(firstShoppingBasket, new String[]{

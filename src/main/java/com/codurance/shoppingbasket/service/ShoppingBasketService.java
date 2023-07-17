@@ -3,7 +3,6 @@ package com.codurance.shoppingbasket.service;
 import com.codurance.shoppingbasket.model.ShoppingBasket;
 import com.codurance.shoppingbasket.model.ShoppingBasketFactory;
 import com.codurance.shoppingbasket.repositories.ProductRepository;
-import com.codurance.shoppingbasket.model.ProductOrder;
 import com.codurance.shoppingbasket.repositories.ShoppingBasketRepository;
 
 import java.util.HashMap;
@@ -24,20 +23,14 @@ public class ShoppingBasketService {
     public void addItem(int userId, int itemId, int quantity) {
         createBasketFor(userId);
         ShoppingBasket shoppingBasket = basketFor(userId);
-        shoppingBasket.add(createProductOrder(itemId, quantity));
+        shoppingBasket.add(productRepository.find(itemId), quantity);
         shoppingBasketRepository.save(shoppingBasket);
-    }
-
-    private ProductOrder createProductOrder(int itemId, int quantity) {
-        return new ProductOrder(productRepository.find(itemId), quantity);
     }
 
     private void createBasketFor(int userId) {
         String userKey = Integer.toString(userId);
         if (!shoppingBaskets.containsKey(userKey)) {
-            ShoppingBasket newShoppingBasket = shoppingBasketFactory.create(userId);
-
-            shoppingBaskets.put(userKey, newShoppingBasket);
+            shoppingBaskets.put(userKey, shoppingBasketFactory.create(userId));
         }
     }
 
