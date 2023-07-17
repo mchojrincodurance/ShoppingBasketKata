@@ -22,16 +22,23 @@ public class ShoppingBasketService {
     }
 
     public void addItem(int userId, int itemId, int quantity) {
-        String userKey = Integer.toString(userId);
+        createBasketFor(userId);
+        ShoppingBasket shoppingBasket = basketFor(userId);
+        shoppingBasket.add(createProductOrder(itemId, quantity));
+        shoppingBasketRepository.save(shoppingBasket);
+    }
 
+    private ProductOrder createProductOrder(int itemId, int quantity) {
+        return new ProductOrder(productRepository.find(itemId), quantity);
+    }
+
+    private void createBasketFor(int userId) {
+        String userKey = Integer.toString(userId);
         if (!shoppingBaskets.containsKey(userKey)) {
             ShoppingBasket newShoppingBasket = shoppingBasketFactory.create(userId);
 
             shoppingBaskets.put(userKey, newShoppingBasket);
         }
-
-        basketFor(userId).add(new ProductOrder(productRepository.find(itemId), quantity));
-        shoppingBasketRepository.save(basketFor(userId));
     }
 
     public ShoppingBasket basketFor(int userId) {
