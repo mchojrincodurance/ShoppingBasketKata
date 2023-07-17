@@ -15,13 +15,23 @@ public class ShoppingBasketConsoleRenderer {
     }
 
     public void render(ShoppingBasket shoppingBasket) {
-        console.printLine("Creation date of the shopping basket: " + shoppingBasket.createdAt().toString());
+        printHeading(shoppingBasket);
+        printBody(shoppingBasket);
+        printTotal(shoppingBasket);
+    }
 
-        for (ProductOrder po : shoppingBasket.productOrders() ) {
-            render(po);
-        }
-
+    private void printTotal(ShoppingBasket shoppingBasket) {
         console.printLine("Total: £" + formatFloat(shoppingBasket.total()));
+    }
+
+    private void printBody(ShoppingBasket shoppingBasket) {
+        shoppingBasket
+                .productOrders()
+                .forEach(this::render);
+    }
+
+    private void printHeading(ShoppingBasket shoppingBasket) {
+        console.printLine("Creation date of the shopping basket: " + shoppingBasket.createdAt().toString());
     }
 
     private void render(ProductOrder po) {
