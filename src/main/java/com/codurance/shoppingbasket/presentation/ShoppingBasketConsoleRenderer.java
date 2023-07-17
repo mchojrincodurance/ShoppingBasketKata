@@ -7,10 +7,10 @@ import com.codurance.shoppingbasket.model.ProductOrder;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 
-public class ShoppingBasketRenderer {
+public class ShoppingBasketConsoleRenderer {
     private final MyConsole console;
 
-    public ShoppingBasketRenderer(MyConsole console) {
+    public ShoppingBasketConsoleRenderer(MyConsole console) {
         this.console = console;
     }
 

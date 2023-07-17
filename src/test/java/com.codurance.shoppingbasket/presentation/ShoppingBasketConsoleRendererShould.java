@@ -19,7 +19,7 @@ import static org.mockito.Mockito.verify;
 
 
 @ExtendWith(MockitoExtension.class)
-public class ShoppingBasketRendererShould {
+public class ShoppingBasketConsoleRendererShould {
 
     private static final int OWNER_ID = 1;
     public static final String THE_HOBBIT = "The Hobbit";
@@ -41,7 +41,7 @@ public class ShoppingBasketRendererShould {
     private MyConsole console;
 
     @InjectMocks
-    private ShoppingBasketRenderer renderer;
+    private ShoppingBasketConsoleRenderer renderer;
 
     public static Stream<Arguments> shoppingBasketProvider() {
         Product theHobbit = new Product(THE_HOBBIT_ID, THE_HOBBIT, THE_HOBBIT_PRICE);

@@ -1,11 +1,10 @@
 package com.codurance.shoppingbasket.controller;
 
-import com.codurance.shoppingbasket.infrastructure.MyConsole;
 import com.codurance.shoppingbasket.model.Product;
 import com.codurance.shoppingbasket.model.ShoppingBasket;
 import com.codurance.shoppingbasket.repositories.ProductRepository;
 import com.codurance.shoppingbasket.service.ShoppingBasketService;
-import com.codurance.shoppingbasket.presentation.ShoppingBasketRenderer;
+import com.codurance.shoppingbasket.presentation.ShoppingBasketConsoleRenderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -41,7 +40,7 @@ public class MainControllerShould {
     @InjectMocks
     private MainController mainController;
     @Mock
-    private ShoppingBasketRenderer shoppingBasketRenderer;
+    private ShoppingBasketConsoleRenderer shoppingBasketRenderer;
 
     public static Stream<Arguments> provideAddingItemsParameters() {
         return Stream.of(
