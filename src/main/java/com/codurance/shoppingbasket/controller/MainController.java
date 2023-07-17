@@ -6,8 +6,8 @@ import com.codurance.shoppingbasket.service.ShoppingBasketService;
 
 public class MainController {
     private final ShoppingBasketService shoppingBasketService;
-    private ProductRepository productRepository;
-    private ShoppingBasketRenderer shoppingBasketRenderer;
+    private final ProductRepository productRepository;
+    private final ShoppingBasketRenderer shoppingBasketRenderer;
 
     public MainController(ShoppingBasketRenderer renderer, ShoppingBasketService shoppingBasketService, ProductRepository productRepository) {
         this.shoppingBasketService = shoppingBasketService;
