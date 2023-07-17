@@ -8,6 +8,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
@@ -15,6 +18,8 @@ import static org.mockito.Mockito.when;
 public class ProductRepositoryShould {
     public static final String PRODUCT_NAME = "The hobbit";
     public static final String PRODUCT_TYPE = "product";
+    public static final float PRODUCT_PRICE = 5F;
+    public static final int PRODUCT_ID = 1;
     @Mock
     private Database database;
     @InjectMocks
@@ -22,9 +27,35 @@ public class ProductRepositoryShould {
 
     @Test
     public void find_products_by_name() {
-        Product theHobbit = new Product(1, PRODUCT_NAME, 5);
-        when(database.findBy(PRODUCT_TYPE, "name", PRODUCT_NAME)).thenReturn(theHobbit);
+        Product theHobbit = new Product(PRODUCT_ID, PRODUCT_NAME, PRODUCT_PRICE);
 
-        assertEquals(theHobbit, productRepository.find(PRODUCT_NAME));
+        when(database.findBy(PRODUCT_TYPE, Database.NAME, PRODUCT_NAME)).thenReturn(buildProductRecord());
+
+        Product actual = productRepository.find(PRODUCT_NAME);
+        assertEquals(theHobbit.id(), actual.id());
+        assertEquals(theHobbit.name(), actual.name());
+        assertEquals(theHobbit.price(), actual.price());
+    }
+
+    private static Map.Entry<String, HashMap<String, String>> buildProductRecord() {
+        return new Map.Entry<>() {
+            @Override
+            public String getKey() {
+                return Integer.toString(PRODUCT_ID);
+            }
+
+            @Override
+            public HashMap<String, String> getValue() {
+                return new HashMap<>() {{
+                    put(Database.NAME, PRODUCT_NAME);
+                    put(Database.PRICE, Float.toString(PRODUCT_PRICE));
+                }};
+            }
+
+            @Override
+            public HashMap<String, String> setValue(HashMap<String, String> value) {
+                return null;
+            }
+        };
     }
 }

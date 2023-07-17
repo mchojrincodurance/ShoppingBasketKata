@@ -8,22 +8,22 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockito.stubbing.OngoingStubbing;
 import shoppingbasket.model.ProductOrder;
 import shoppingbasket.repositories.ShoppingBasketRepository;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 
-import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class ShoppingBasketRepositoryShould
-{
+public class ShoppingBasketRepositoryShould {
     private static final String ITEM_QUANTITY = "10";
-    private static final String ITEM_ID = "456";
+    private static final String PRODUCT_ID = "456";
     private static final String BASKET_ID = "345";
+    public static final String PRODUCT_NAME = "Item name";
+    public static final int PRODUCT_PRICE = 10;
     @Mock
     private Database database;
     private static final String USER_ID = "5";
@@ -33,25 +33,52 @@ public class ShoppingBasketRepositoryShould
 
     @Test
     public void persist_shopping_baskets_to_database() {
-        ShoppingBasket shoppingBasket = new ShoppingBasket(Integer.parseInt(USER_ID));
+        LocalDate now = buildLocalDate();
+        ShoppingBasket shoppingBasket = buildShoppingBasket(now);
+        shoppingBasket.add(buildProductOrder());
 
-        shoppingBasket.add(
-                new ProductOrder(
-                        new Product(Integer.parseInt(ITEM_ID), "Item name", 10),
-                        Integer.parseInt(ITEM_QUANTITY)
-                )
-        );
-
-        when(database.insertShoppingBasket(Integer.parseInt(USER_ID))).thenReturn(Integer.parseInt(BASKET_ID));
+        when(
+                database.insert(Database.SHOPPING_BASKET, buildShoppingBasketData(now))
+        )
+                .thenReturn(Integer.valueOf(BASKET_ID));
 
         shoppingBasketRepository.save(shoppingBasket);
 
-        verify(database).insertShoppingBasket(Integer.parseInt(USER_ID));
-        verify(database).insertProductOrder(Integer.parseInt(BASKET_ID), new HashMap<>() {{
-            // BASKET_ID, ITEM_ID, ITEM_QUANTITY
-            put("basket_id", BASKET_ID);
-            put("item_id", ITEM_ID);
-            put("item_quantity", ITEM_QUANTITY);
-        }});
+        verify(database).insert(Database.SHOPPING_BASKET, buildShoppingBasketData(now));
+        verify(database).insert(Database.PRODUCT_ORDER, buildProductOrderData());
+    }
+
+    private static LocalDate buildLocalDate() {
+        return LocalDate.now();
+    }
+
+    private static ShoppingBasket buildShoppingBasket(LocalDate now) {
+        return new ShoppingBasket(Integer.parseInt(USER_ID), now);
+    }
+
+    private static HashMap<String, String> buildProductOrderData() {
+        return new HashMap<>() {{
+            put(Database.BASKET_ID, BASKET_ID);
+            put(Database.ITEM_ID, PRODUCT_ID);
+            put(Database.ITEM_QUANTITY, ITEM_QUANTITY);
+        }};
+    }
+
+    private static HashMap<String, String> buildShoppingBasketData(LocalDate now) {
+        return new HashMap<>() {{
+            put(Database.OWNER_ID, USER_ID);
+            put(Database.CREATED_AT, now.toString());
+        }};
+    }
+
+    private static ProductOrder buildProductOrder() {
+        return new ProductOrder(
+                buildProduct(),
+                Integer.parseInt(ITEM_QUANTITY)
+        );
+    }
+
+    private static Product buildProduct() {
+        return new Product(Integer.parseInt(PRODUCT_ID), PRODUCT_NAME, PRODUCT_PRICE);
     }
 }
