@@ -3,7 +3,6 @@ package com.codurance.shoppingbasket.presentation;
 import com.codurance.shoppingbasket.infrastructure.MyConsole;
 import com.codurance.shoppingbasket.model.Product;
 import com.codurance.shoppingbasket.model.ShoppingBasket;
-import com.codurance.shoppingbasket.presentation.ShoppingBasketRenderer;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
