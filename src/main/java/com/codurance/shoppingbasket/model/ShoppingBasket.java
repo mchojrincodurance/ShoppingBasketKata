@@ -32,12 +32,9 @@ public class ShoppingBasket {
     }
 
     public float total() {
-        float total = 0;
-
-        for ( ProductOrder po : productOrders ) {
-            total += po.subtotal();
-        }
-
-        return total;
+        return productOrders
+                .stream()
+                .map(ProductOrder::subtotal)
+                .reduce(0F, Float::sum);
     }
 }
