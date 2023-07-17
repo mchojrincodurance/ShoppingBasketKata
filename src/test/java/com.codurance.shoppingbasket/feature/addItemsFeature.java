@@ -1,6 +1,7 @@
 package com.codurance.shoppingbasket.feature;
 
 import com.codurance.shoppingbasket.controller.MainController;
+import com.codurance.shoppingbasket.infrastructure.MyClock;
 import com.codurance.shoppingbasket.infrastructure.MyConsole;
 import com.codurance.shoppingbasket.infrastructure.ShoppingBasketRenderer;
 import com.codurance.shoppingbasket.model.ShoppingBasketFactory;
@@ -26,7 +27,7 @@ public class addItemsFeature {
         Database database = new Database();
         ProductRepository productRepository = new ProductRepository(database);
 
-        mainController = new MainController(new ShoppingBasketRenderer(console), new ShoppingBasketService(new ShoppingBasketFactory(), new ShoppingBasketRepository(database), productRepository), productRepository);
+        mainController = new MainController(new ShoppingBasketRenderer(console), new ShoppingBasketService(new ShoppingBasketFactory(new MyClock()), new ShoppingBasketRepository(database), productRepository), productRepository);
     }
 
     /**
