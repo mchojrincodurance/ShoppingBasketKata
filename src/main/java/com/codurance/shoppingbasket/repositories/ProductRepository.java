@@ -3,7 +3,6 @@ package com.codurance.shoppingbasket.repositories;
 import com.codurance.shoppingbasket.model.Product;
 import infrastructure.Database;
 
-import javax.xml.crypto.Data;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,7 +15,7 @@ public class ProductRepository {
     }
 
     public Product find(String productName) {
-        Map.Entry<String, HashMap<String, String>> record = database.findBy("product", "name", productName);
+        Map.Entry<String, HashMap<String, String>> record = database.findBy(Database.PRODUCT, Database.NAME, productName);
 
         return new Product(
                 Integer.parseInt(record.getKey()),
@@ -26,7 +25,12 @@ public class ProductRepository {
     }
 
     public Product find(int itemId) {
+        Map.Entry<String, HashMap<String, String>> record = database.findBy(Database.PRODUCT, Database.ID, Integer.toString(itemId));
 
-        return (Product) database.findBy("product", "id", Integer.toString(itemId));
+        return new Product(
+                Integer.parseInt(record.getKey()),
+                record.getValue().get(Database.NAME),
+                Float.parseFloat(record.getValue().get(Database.PRICE))
+        );
     }
 }

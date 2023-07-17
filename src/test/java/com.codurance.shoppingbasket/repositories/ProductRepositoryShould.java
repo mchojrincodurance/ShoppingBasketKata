@@ -37,6 +37,18 @@ public class ProductRepositoryShould {
         assertEquals(theHobbit.price(), actual.price());
     }
 
+    @Test
+    public void find_products_by_id() {
+        Product theHobbit = new Product(PRODUCT_ID, PRODUCT_NAME, PRODUCT_PRICE);
+
+        when(database.findBy(PRODUCT_TYPE, Database.ID, Integer.toString(PRODUCT_ID))).thenReturn(buildProductRecord());
+
+        Product actual = productRepository.find(PRODUCT_ID);
+        assertEquals(theHobbit.id(), actual.id());
+        assertEquals(theHobbit.name(), actual.name());
+        assertEquals(theHobbit.price(), actual.price());
+    }
+
     private static Map.Entry<String, HashMap<String, String>> buildProductRecord() {
         return new Map.Entry<>() {
             @Override
