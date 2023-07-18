@@ -10,11 +10,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class ShoppingBasketServiceShould {
@@ -25,6 +25,8 @@ public class ShoppingBasketServiceShould {
     private static final int ITEM_PRICE = 6;
     private static final int OTHER_USER_ID = 2;
     private ShoppingBasketService shoppingBasketService;
+    @Spy
+    private ShoppingBasketFactory shoppingBasketFactory = new ShoppingBasketFactory(new MyClock());
     @Mock
     private ShoppingBasketRepository shoppingBasketRepository;
 
@@ -34,7 +36,7 @@ public class ShoppingBasketServiceShould {
     @BeforeEach
     public void setUp()
     {
-        shoppingBasketService = new ShoppingBasketService(new ShoppingBasketFactory(new MyClock()), shoppingBasketRepository, productRepository);
+        shoppingBasketService = new ShoppingBasketService(shoppingBasketFactory, shoppingBasketRepository, productRepository);
     }
 
     @Test
@@ -44,8 +46,7 @@ public class ShoppingBasketServiceShould {
 
         shoppingBasketService.addItem(USER_ID, ITEM_ID, 1);
 
-        shoppingBasket = shoppingBasketService.basketFor(USER_ID);
-        assertNotNull(shoppingBasket);
+        verify(shoppingBasketFactory, times(1)).create(USER_ID);
     }
 
     @Test
